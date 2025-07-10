@@ -10,12 +10,12 @@ sudo pacman -Syu --noconfirm
 echo ">>> Installing official packages..."
 sudo pacman -S --needed --noconfirm \
   bspwm sxhkd polybar rofi dunst nitrogen picom feh \
-  alacritty kitty zsh neofetch \
+  kitty zsh \
   xorg xorg-xinit networkmanager sddm \
   noto-fonts noto-fonts-cjk noto-fonts-emoji \
   ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono \
   git curl unzip wget brightnessctl pamixer playerctl bc \
-  ffmpeg dolphin npm
+  ffmpeg dolphin npm yazi python-pywal btop
 
 echo ">>> Installing yay AUR helper (if not installed)..."
 if ! command -v yay &> /dev/null; then
@@ -25,7 +25,7 @@ if ! command -v yay &> /dev/null; then
 fi
 
 echo ">>> Installing AUR packages..."
-yay -S --noconfirm geist-font yazi btop pywal
+yay -S --noconfirm geist-font neofetch
 
 echo ">>> Cloning dotfiles repo..."
 if [ ! -d "$DOTFILES_DIR" ]; then
