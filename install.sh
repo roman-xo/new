@@ -9,7 +9,7 @@ sudo pacman -Syu --noconfirm
 
 echo ">>> Installing official packages..."
 sudo pacman -S --needed --noconfirm \
-  bspwm sxhkd polybar rofi dunst nitrogen picom feh \
+  bspwm sxhkd polybar rofi dunst libnotify nitrogen picom feh \
   kitty zsh \
   xorg xorg-xinit networkmanager sddm \
   noto-fonts noto-fonts-cjk noto-fonts-emoji \
