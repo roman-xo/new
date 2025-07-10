@@ -45,8 +45,11 @@ cp -r "$DOTFILES_DIR/fonts/"* "$HOME/.local/share/fonts/" 2>/dev/null || true
 fc-cache -fv
 
 echo ">>> Making script files executable..."
-find "$HOME/.config/bspwm/scripts" -type f -name "*.sh" -exec chmod +x {} \;
-find "$HOME/.config/polybar" -type f -name "*.sh" -exec chmod +x {} \;
+chmod +x "$HOME/.config/sxhkd/sxhkdrc"
+chmod +x "$HOME/.config/bspwm/bspwmrc"
+chmod +x "$HOME/.config/bspwm/scripts/brightness.sh"
+chmod +x "$HOME/.config/bspwm/scripts/media.sh"
+chmod +x "$HOME/.config/bspwm/scripts/volume.sh"
 chmod +x "$HOME/.config/rofi/launchers/type-6/launcher.sh"
 
 echo ">>> Setting up default wallpaper..."
