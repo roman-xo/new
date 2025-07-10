@@ -41,6 +41,7 @@ ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 echo ">>> Making script files executable..."
 find "$HOME/.config/bspwm/scripts" -type f -iname "*.sh" -exec chmod +x {} \;
 chmod +x "$HOME/.config/rofi/launchers/type-6/launcher.sh"
+chmod +x "$HOME/.config/sxhkd/sxhkdrc"
 
 echo ">>> Setting up default wallpaper..."
 mkdir -p "$HOME/wallpapers"
