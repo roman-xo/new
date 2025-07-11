@@ -117,5 +117,3 @@ source ~/.cache/wal/colors-tty.sh
 
 
 export "MICRO_TRUECOLOR=1"
-
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
