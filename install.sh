@@ -52,17 +52,23 @@ chmod +x "$HOME/.config/bspwm/scripts/media.sh"
 chmod +x "$HOME/.config/bspwm/scripts/volume.sh"
 chmod +x "$HOME/.config/rofi/launchers/type-6/launcher.sh"
 
+echo ">>> Updating bspwmrc to apply pywal + wallpaper..."
+bspwmrc="$HOME/.config/bspwm/bspwmrc"
+
+if ! grep -q "pywal autoload" "$bspwmrc"; then
+cat << 'EOF' >> "$bspwmrc"
+
+# --- pywal autoload ---
+[ -f "$HOME/.cache/wal/colors.sh" ] && source "$HOME/.cache/wal/colors.sh"
+wal -i "$HOME/wallpapers/default.jpg" &
+feh --bg-scale "$(cat "$HOME/.cache/wal/wal")" &
+EOF
+fi
+
 echo ">>> Setting up default wallpaper..."
 mkdir -p "$HOME/wallpapers"
 cp "$DOTFILES_DIR/wallpapers/default.jpg" "$HOME/wallpapers/default.jpg"
 wal -i "$HOME/wallpapers/default.jpg"
-
-echo ">>> Creating .xprofile for pywal + wallpaper autoload..."
-cat << EOF > "$HOME/.xprofile"
-wal -i "$HOME/wallpapers/default.jpg"
-[ -f "\$HOME/.cache/wal/colors.sh" ] && source "\$HOME/.cache/wal/colors.sh"
-feh --bg-scale "\$(cat "\$HOME/.cache/wal/wal")"
-EOF
 
 echo ">>> Installing oh-my-zsh (unattended)..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -70,7 +76,8 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-echo ">>> Restoring custom .zshrc..."
+echo ">>> Replacing default .zshrc with your custom one..."
+rm -f "$HOME/.zshrc"
 cp "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
 echo ">>> Setting default shell to zsh..."
