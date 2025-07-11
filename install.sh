@@ -4,10 +4,10 @@ set -euo pipefail
 DOTFILES_DIR="$HOME/.dotfiles"
 REPO_URL="https://github.com/roman-xo/new.git"
 
-echo ">>> Updating system..."
+echo ">>> Updating da system..."
 sudo pacman -Syu --noconfirm
 
-echo ">>> Installing official packages..."
+echo ">>> Installing da Dependencies"
 sudo pacman -S --needed --noconfirm \
   bspwm sxhkd polybar rofi dunst libnotify nitrogen picom feh \
   kitty zsh \
@@ -25,10 +25,10 @@ if ! command -v yay &> /dev/null; then
   makepkg -si --noconfirm
 fi
 
-echo ">>> Installing AUR packages..."
+echo ">>> Installing NEOFETCH..."
 yay -S --noconfirm neofetch
 
-echo ">>> Cloning dotfiles repo..."
+echo ">>> Cloning dotfiles..."
 if [ ! -d "$DOTFILES_DIR" ]; then
   git clone "$REPO_URL" "$DOTFILES_DIR"
 fi
@@ -39,7 +39,7 @@ cp -r "$DOTFILES_DIR/.config/"* "$HOME/.config/"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 [ -f "$DOTFILES_DIR/.xinitrc" ] && ln -sf "$DOTFILES_DIR/.xinitrc" "$HOME/.xinitrc"
 
-echo ">>> Installing custom fonts (if any)..."
+echo ">>> Installing terminal font..."
 mkdir -p "$HOME/.local/share/fonts"
 cp -r "$DOTFILES_DIR/fonts/"* "$HOME/.local/share/fonts/" 2>/dev/null || true
 fc-cache -fv
@@ -52,11 +52,10 @@ chmod +x "$HOME/.config/bspwm/scripts/media.sh"
 chmod +x "$HOME/.config/bspwm/scripts/volume.sh"
 chmod +x "$HOME/.config/rofi/launchers/type-6/launcher.sh"
 
-echo ">>> Setting up default wallpaper and applying pywal colors..."
+echo ">>> Setting up yummy colors..."
 mkdir -p "$HOME/wallpapers"
-cp "$DOTFILES_DIR/wallpapers/default.jpg" "$HOME/wallpapers/default.jpg"
+cp -r "$DOTFILES_DIR/wallpapers/"* "$HOME/wallpapers/"
 wal -i "$HOME/wallpapers/default.jpg"
-feh --bg-scale "$(cat "$HOME/.cache/wal/wal")"
 
 echo ">>> Installing oh-my-zsh (unattended)..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -64,16 +63,36 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-echo ">>> Replacing default .zshrc with your custom one..."
+echo ">>> Customing zsh..."
 rm -f "$HOME/.zshrc"
 cp "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
 echo ">>> Setting default shell to zsh..."
 chsh -s "$(which zsh)"
 
+echo ">>> Setting up default wallpaper..."
+mkdir -p "$HOME/.config/nitrogen"
+cat <<EOF > "$HOME/.config/nitrogen/bg-saved.cfg"
+[xin_-1]
+file=$HOME/wallpapers/default.jpg
+mode=0
+bgcolor=#000000
+EOF
+
+cat <<EOF > "$HOME/.config/nitrogen/nitrogen.cfg"
+[geometry]
+posx=0
+posy=0
+sizex=400
+sizey=300
+
+[saved]
+file1=$HOME/wallpapers/default.jpg
+EOF
+
 echo ">>> Enabling system services..."
 sudo systemctl enable --now sddm
 sudo systemctl enable --now NetworkManager
 
 echo -e "\n✅ Install complete!"
-echo "→ Reboot to enter your configured desktop 😎"
+echo "→ Type "reboot" and press enter to complete the installation"
