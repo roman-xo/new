@@ -56,6 +56,7 @@ echo ">>> Setting up default wallpaper and applying pywal colors..."
 mkdir -p "$HOME/wallpapers"
 cp "$DOTFILES_DIR/wallpapers/default.jpg" "$HOME/wallpapers/default.jpg"
 wal -i "$HOME/wallpapers/default.jpg"
+feh --bg-scale "$(cat "$HOME/.cache/wal/wal")"
 
 echo ">>> Installing oh-my-zsh (unattended)..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
