@@ -16,7 +16,7 @@ sudo pacman -S --needed --noconfirm \
   ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono \
   git curl unzip wget brightnessctl pamixer playerctl bc \
   ffmpeg dolphin npm \
-  yazi python-pywal
+  yazi python-pywal zsh-autosuggestions
 
 echo ">>> Installing yay AUR helper (if not installed)..."
 if ! command -v yay &> /dev/null; then
