@@ -52,20 +52,7 @@ chmod +x "$HOME/.config/bspwm/scripts/media.sh"
 chmod +x "$HOME/.config/bspwm/scripts/volume.sh"
 chmod +x "$HOME/.config/rofi/launchers/type-6/launcher.sh"
 
-echo ">>> Updating bspwmrc to apply pywal + wallpaper..."
-bspwmrc="$HOME/.config/bspwm/bspwmrc"
-
-if ! grep -q "pywal autoload" "$bspwmrc"; then
-cat << 'EOF' >> "$bspwmrc"
-
-# --- pywal autoload ---
-[ -f "$HOME/.cache/wal/colors.sh" ] && source "$HOME/.cache/wal/colors.sh"
-wal -i "$HOME/wallpapers/default.jpg" &
-feh --bg-scale "$(cat "$HOME/.cache/wal/wal")" &
-EOF
-fi
-
-echo ">>> Setting up default wallpaper..."
+echo ">>> Setting up default wallpaper and applying pywal colors..."
 mkdir -p "$HOME/wallpapers"
 cp "$DOTFILES_DIR/wallpapers/default.jpg" "$HOME/wallpapers/default.jpg"
 wal -i "$HOME/wallpapers/default.jpg"
